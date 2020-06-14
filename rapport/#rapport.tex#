@@ -1,0 +1,87 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xspace}
+\usepackage[french]{babel}
+%\usepackage{amsmath}
+\usepackage{xcolor}
+\title{Rapport}
+\author{ Handy-Pedro \textsc{Valery}\\
+  %(valeryhandypedro@yahoo.com)
+  Charles \textsc{Dehlinger}\\
+  %(charles.dehlinger@universite-paris-saclay.fr)
+}
+\date{Dimanche 14 juin 2020}
+\setcounter{tocdepth}{4}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{introduction}
+Dans ce projet, nous avons été amemés à chercher la meilleur façon de
+détecter la langue maternelle d'un locuteur lorsqu'il s'exprime en
+anglais.\\
+Nous avons choisit de regarder les mots typiques utilisés par
+certains locuteurs. En effet certains mots sont transparants dans
+certaines langues et sont donc plus utilisés par ceux qui la
+pratiquent.
+
+\section{le traitement des données}
+Les données sont traitées de la façon suivante :
+\begin{itemize}
+\item On sépare les phrases, selon les points (.),
+\item On découpe chaque phrase en mots grâce à une expression
+  régulière,
+\item On obtient un tableau de phrases, chaque phrase étant un tableau
+  de mots.
+\end{itemize}
+À la suite de celà, on peut travailler phrase par phrase.
+\section{analyse des données}
+\subsection{les mots}
+Nous avons d'abord essayé un procédé fondé sur de l'inférence
+bayésienne. On commence par calculer la probabilité qu'un mot se
+trouve dans un texte d'une langue donnée $P_l(m)$, puis la probabilité
+qu'un texte soit de cette langue $P(l)$ (uniforme dans le cas
+présent), en suite on calcule la probabilité que ce mot se trouve dans
+un texte quelconque $P(m)$, enfin on peut estimer la probabilité qu'un
+texte soit dans un texte sachant qu'un mot s'y trouve $P_m(l)$, grâce
+à la formule de bayes :
+$$P_m(l) = \frac{P_l(m) \cdot P(l)}{P(m)}$$
+
+Malheureusement ce procédé nous a donné des résultats désastreux (à
+peine plus que le hasard).
+\subsection{les purs/impurs}
+Nous avons choisit de regarder les mots typiques utilisés, par
+certains locuteurs. En effet certains mots sont transparants dans
+certaines langues et sont donc plus utilisés par ceux qui la
+pratiquent.
+
+Nous avons créé trois catégories de mots pour une langue donnée :
+\begin{description}
+\item[les mots pures], c'est à dire les mots trouvés uniquement dans
+  les textes d'une seule langue.
+\item[les mots impures], qui sont des mots trouvés dans certaines
+  langues (dont celle actuellement étudiée),mais pas toutes
+\item[les mots globaux], qui ne sont pas présents dans la langue
+  étudiée, mais qu'on peut trouver dans d'autres textes
+\end{description}
+À partir de là, le fait de trouver un mot pure dans un texte augmente
+les chances que ce texte appartienne à la langue correspondante.
+Inversement la présence de mots impures réduit les chances que le
+texte appartienne à une langue donnée.  Ce procédé nous a donné de
+bons résultats : $30\%$ au début puis $51\%$ après une transformation,
+en effet, ne travailler qu'avec les mots pures donne un modèle fiable
+à seulement $25\%$ tandis qu'en introduisant les globaux on augemente
+le score à $30\%$. Finalement en introduisant un fonction de
+minimisation des mots pures, impures et globaux on obtient
+$51\%$ de bonne predictions.
+
+\subsection{les forêts aléatoires}
+Pour améliorer les scores, nous avons utilisé les variables
+précédement nommées aimsi que des variables générales, commes la
+longueur du texte ou le nombre le mots par phrase pour nourrir un
+algorithme de forêt aléatoire. Ce procédé nous a permis d'atteindre un
+score de $41\%$ environ.
+\section{Conclusion}
+Ce projet est , mais …
+\end{document}
