@@ -18,11 +18,11 @@
 \tableofcontents
 
 \section{introduction}
-Dans ce projet, nous avons été amemés à chercher la meilleur façon de
+Dans ce projet, nous avons été amenés à chercher la meilleur façon de
 détecter la langue maternelle d'un locuteur lorsqu'il s'exprime en
 anglais.\\
 Nous avons choisit de regarder les mots typiques utilisés par
-certains locuteurs. En effet certains mots sont transparants dans
+certains locuteurs. En effet certains mots sont transparents dans
 certaines langues et sont donc plus utilisés par ceux qui la
 pratiquent.
 
@@ -35,7 +35,7 @@ Les données sont traitées de la façon suivante :
 \item On obtient un tableau de phrases, chaque phrase étant un tableau
   de mots.
 \end{itemize}
-À la suite de celà, on peut travailler phrase par phrase.
+À la suite de cela, on peut travailler phrase par phrase.
 \section{analyse des données}
 \subsection{les mots}
 Nous avons d'abord essayé un procédé fondé sur de l'inférence
@@ -51,11 +51,6 @@ $$P_m(l) = \frac{P_l(m) \cdot P(l)}{P(m)}$$
 Malheureusement ce procédé nous a donné des résultats désastreux (à
 peine plus que le hasard).
 \subsection{les purs/impurs}
-Nous avons choisit de regarder les mots typiques utilisés, par
-certains locuteurs. En effet certains mots sont transparants dans
-certaines langues et sont donc plus utilisés par ceux qui la
-pratiquent.
-
 Nous avons créé trois catégories de mots pour une langue donnée :
 \begin{description}
 \item[les mots pures], c'est à dire les mots trouvés uniquement dans
@@ -71,17 +66,27 @@ Inversement la présence de mots impures réduit les chances que le
 texte appartienne à une langue donnée.  Ce procédé nous a donné de
 bons résultats : $30\%$ au début puis $51\%$ après une transformation,
 en effet, ne travailler qu'avec les mots pures donne un modèle fiable
-à seulement $25\%$ tandis qu'en introduisant les globaux on augemente
+à seulement $25\%$ tandis qu'en introduisant les globaux on augmente
 le score à $30\%$. Finalement en introduisant un fonction de
 minimisation des mots pures, impures et globaux on obtient
-$51\%$ de bonne predictions
+$51\%$ de bonnes prédictions
 
 \subsection{les forêts aléatoires}
 Pour améliorer les scores, nous avons utilisé les variables
-précédement nommées aimsi que des variables générales, commes la
+précédemment nommées ainsi que des variables générales, comme la
 longueur du texte ou le nombre le mots par phrase pour nourrir un
 algorithme de forêt aléatoire. Ce procédé nous a permis d'atteindre un
 score de $41\%$ environ.
 \section{Conclusion}
-…
+Le meilleur modèle est le modèle heuristique, ce qui nous a surpris,
+et même un peu déçu. Étant donné qu'avant la transformation de
+celui-ci la forêt aléatoire nous avait donné un résultat de 10 points
+supérieur, nous nous attendions à un score entre $55$ et $60\%$. Mais
+cette transformation ne l'a pas affecté.
+
+Cependant nous sommes surpris qu'un modèle aussi simple parvienne a
+dépasser la barre des $50\%$, nous pensons même qu'en le consolidant
+avec un autre modèle qui analyserait un autre aspect des textes
+(analyse des types d'erreurs, construction syntaxique des phrases, …)
+nous aurions pu attendre un score nettement supérieur.
 \end{document}
